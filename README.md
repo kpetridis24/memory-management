@@ -6,12 +6,10 @@ external fragmentation is minimized. This means that during the memory allocatio
 efficiently used by the next memory allocation requests. A first idea would be to concatenate empty memory spaces after dynamic allocation has occured, so 
 that we end up with significantly large chunks of memory, that are more likely to be used, than having scattered, small pieces of free space all over the memory.
 
-The validity of the functions used, is examined by the corresponding tester functions in 'tests.h'. The memory allocation methods used are:
+The validity of the functions used, is examined by the corresponding tester functions in 'tests.h'. The [memory allocation methods](https://www.tutorialspoint.com/operating_system/os_memory_allocation_qa2.htm) used are:
 - First Fit
 - Best Fit
 - Next Fit
-
-Useful information about these methods can be found [here](https://www.tutorialspoint.com/operating_system/os_memory_allocation_qa2.htm)
 
 To run the code follow the steps:
 
