@@ -6,6 +6,9 @@ external fragmentation is minimized. This means that during the memory allocatio
 efficiently used by the next memory allocation requests. A first idea would be to concatenate empty memory spaces after dynamic allocation has occured, so 
 that we end up with significantly large chunks of memory, that are more likely to be used, than having scattered, small pieces of free space all over the memory.
 
+The validity of the functions used, is examined by the corresponding tester functions in 'tests.h'. The memory allocation methods used are:
+- [First Fit](https://www.geeksforgeeks.org/first-fit-allocation-in-operating-systems/)
+
 To run the code follow the steps:
 
 1. Install the repository
@@ -20,3 +23,5 @@ make static
 ```
 make dynamic
 ```
+
+
