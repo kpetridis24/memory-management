@@ -1,3 +1,8 @@
+#ifndef STATICMEMORYMANAGEMENT 
+#define STATICMEMORYMANAGEMENT
+
+#include "memorySegment.h"
+
 /**
  * Static memory allocation techniques, for a requested memory size, and memory blocks. The memory remains intact, no 
  * segments are added, removed or changed.
@@ -6,9 +11,9 @@
  * @param requestedMem The requested memory size to be allocated.
  * @return memorySegment* The memory block that is available for allocation.
  */
-memorySegment *assignFirst(memorySegment *memList, uint requestedMem);
-memorySegment *assignBest(memorySegment *memList, uint requestedMem);
-memorySegment *assignNext(memorySegment *memList, uint requestedMem);
+memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem);
+memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem);
+memorySegment *assignNext(memorySegment *memList, uint16_t requestedMem);
 void reclaim(memorySegment *memList, memorySegment* thisOne);
 
 /**
@@ -16,7 +21,7 @@ void reclaim(memorySegment *memList, memorySegment* thisOne);
  */
 memorySegment *lastAllocatedBlock;
 
-memorySegment *assignFirst(memorySegment *memList, uint requestedMem) {
+memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
 
@@ -35,11 +40,11 @@ memorySegment *assignFirst(memorySegment *memList, uint requestedMem) {
     return (NULL);
 }
 
-memorySegment *assignBest(memorySegment *memList, uint requestedMem) {
+memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
     memorySegment *bestBlock;
-    uint bestFit = UINT_MAX;
+    uint16_t bestFit = UINT16_MAX;
 
     while(currentSegment != NULL) {
         if (currentSegment->occupied) {
@@ -47,7 +52,7 @@ memorySegment *assignBest(memorySegment *memList, uint requestedMem) {
             continue;
         } 
         if (currentSegment->length >= requestedMem) {
-            uint currentFit = currentSegment->length - requestedMem;
+            uint16_t currentFit = currentSegment->length - requestedMem;
             if (currentFit <= bestFit) {
                 bestFit = currentFit;
                 bestBlock = currentSegment;
@@ -73,7 +78,7 @@ memorySegment *assignBest(memorySegment *memList, uint requestedMem) {
     return (NULL);
 }
 
-memorySegment *assignNext(memorySegment *memList, uint requestedMem) {
+memorySegment *assignNext(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     if (lastAllocatedBlock == NULL) {
         currentSegment = memList;
@@ -108,3 +113,5 @@ void reclaim(memorySegment *memList, memorySegment* thisOne) {
         }
     }
 }
+
+#endif

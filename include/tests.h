@@ -1,3 +1,9 @@
+#ifndef TESTS
+#define TESTS
+
+#include "staticMemoryManagement.h"
+#include "dynamicMemoryManagement.h"
+
 /**
  * Functions that perform validity-functionality tests, for the memory-segment handling functions.
  */
@@ -75,7 +81,7 @@ void test_assignFirst() {
     printf("\n========================= ASSIGN FIRST =========================\n\n");
     memorySegment *segments;
     segments = initializeMemory();
-    uint requiredMemory = 40;
+    uint16_t requiredMemory = 40;
 
     printf("Available memory:\n");
     printList(segments);
@@ -107,7 +113,7 @@ void test_assignBest() {
     memorySegment *segments;
     segments = initializeMemory();
 
-    uint requiredMemory = 190;
+    uint16_t requiredMemory = 190;
     printf("Available memory:\n");
     printList(segments);
 
@@ -132,7 +138,7 @@ void test_assignNext() {
     memorySegment *segments;
     segments = initializeMemory();
 
-    uint requiredMemory = 60;
+    uint16_t requiredMemory = 60;
     printf("Available memory:\n");
     printList(segments);
 
@@ -166,7 +172,7 @@ void test_assignFirstDyn() {
     printf("Current memory state:\n");
     printList(segments);
 
-    uint requiredMemory = 150;
+    uint16_t requiredMemory = 150;
     memorySegment *allocatedBlock = assignFirstDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
@@ -195,7 +201,7 @@ void test_assignBestDyn() {
     printf("Current memory state:\n");
     printList(segments);
 
-    uint requiredMemory = 280;  
+    uint16_t requiredMemory = 280;  
     memorySegment *allocatedBlock = assignBestDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
@@ -224,7 +230,7 @@ void test_assignNextDyn() {
     printf("Current memory state:\n");
     printList(segments);
 
-    uint requiredMemory = 170;
+    uint16_t requiredMemory = 170;
     memorySegment *allocatedBlock = assignNextDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
@@ -239,3 +245,5 @@ void test_assignNextDyn() {
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
 }
+
+#endif

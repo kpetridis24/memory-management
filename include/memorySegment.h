@@ -1,3 +1,12 @@
+#ifndef MEMORYSEGMENT
+#define MEMORYSEGMENT
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdint.h>
+#include <stdbool.h>
+#include <limits.h>
+
 /**
  * Each memory segment (block) is represented by a memorySegment structure object.
  */
@@ -61,7 +70,7 @@ void insertListItemAfter(memorySegment *current) {
 void removeListItemAfter(memorySegment *current) {
     if (current) {
         if (current->next->next) {
-            uint offsetToSubtract = current->next->length;
+            uint16_t offsetToSubtract = current->next->length;
             current->next = current->next->next;
             current = current->next;
             while (current != NULL) {
@@ -73,3 +82,5 @@ void removeListItemAfter(memorySegment *current) {
         }
     }
 }
+
+#endif

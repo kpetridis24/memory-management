@@ -1,3 +1,9 @@
+#ifndef DYNAMICMEMORYMANAGEMENT
+#define DYNAMICMEMORYMANAGEMENT
+
+#include "memorySegment.h"
+#include "staticMemoryManagement.h"
+
 /**
  * Dynamic memory allocation techniques, for a requested memory size, and memory blocks. Each time a block is allocated, 
  * the remaining unallocated space of the block, is concatenated to the next, if it exists and is free. Otherwise, we
@@ -7,12 +13,12 @@
  * @param requestedMem The requested memory size to be allocated.
  * @return memorySegment* The memory block that is available for allocation.
  */
-memorySegment *assignFirstDyn(memorySegment *memList, uint requestedMem);
-memorySegment *assignBestDyn(memorySegment *memList, uint requestedMem);
-memorySegment *assignNextDyn(memorySegment *memList, uint requestedMem);
+memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem);
+memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem);
+memorySegment *assignNextDyn(memorySegment *memList, uint16_t requestedMem);
 void reclaimDyn(memorySegment *memList, memorySegment *thisOne);
 
-memorySegment *assignFirstDyn(memorySegment *memList, uint requestedMem) {
+memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
 
@@ -26,7 +32,7 @@ memorySegment *assignFirstDyn(memorySegment *memList, uint requestedMem) {
             return currentSegment;
         }
         if (currentSegment->length > requestedMem) {
-            uint freeMemory = currentSegment->length - requestedMem;
+            uint16_t freeMemory = currentSegment->length - requestedMem;
             currentSegment->occupied = true;
             currentSegment->length = requestedMem;
             if (currentSegment->next) {
@@ -47,11 +53,11 @@ memorySegment *assignFirstDyn(memorySegment *memList, uint requestedMem) {
     return (NULL);
 }
 
-memorySegment *assignBestDyn(memorySegment *memList, uint requestedMem) {
+memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
     memorySegment *bestBlock;
-    uint bestFit = UINT_MAX;
+    uint16_t bestFit = UINT16_MAX;
     bool exactFit = false;
 
     while(currentSegment != NULL) {
@@ -65,7 +71,7 @@ memorySegment *assignBestDyn(memorySegment *memList, uint requestedMem) {
             break; 
         }
         if (currentSegment->length > requestedMem) {
-            uint currentFit = currentSegment->length - requestedMem;
+            uint16_t currentFit = currentSegment->length - requestedMem;
             if (currentFit <= bestFit) {
                 bestFit = currentFit;
                 bestBlock = currentSegment;
@@ -82,7 +88,7 @@ memorySegment *assignBestDyn(memorySegment *memList, uint requestedMem) {
             continue;
         }
         if (currentSegment->startAddress == bestBlock->startAddress) {
-            uint freeMemory = currentSegment->length - requestedMem;
+            uint16_t freeMemory = currentSegment->length - requestedMem;
             currentSegment->occupied = true;
             if (exactFit) {
                 return currentSegment;
@@ -106,7 +112,7 @@ memorySegment *assignBestDyn(memorySegment *memList, uint requestedMem) {
     return (NULL);
 }
 
-memorySegment *assignNextDyn(memorySegment *memList, uint requestedMem) {
+memorySegment *assignNextDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     if (lastAllocatedBlock == NULL) {
         currentSegment = memList;
@@ -124,7 +130,7 @@ memorySegment *assignNextDyn(memorySegment *memList, uint requestedMem) {
             return currentSegment;
         }
         if (currentSegment->length > requestedMem) {
-            uint freeMemory = currentSegment->length - requestedMem;
+            uint16_t freeMemory = currentSegment->length - requestedMem;
             currentSegment->occupied = true;
             currentSegment->length = requestedMem;
             lastAllocatedBlock = currentSegment;
@@ -163,3 +169,5 @@ void reclaimDyn(memorySegment *memList, memorySegment *thisOne) {
         }
     }
 }
+
+#endif

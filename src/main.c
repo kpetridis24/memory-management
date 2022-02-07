@@ -3,10 +3,10 @@
 #include <stdint.h>
 #include <stdbool.h>
 #include <limits.h>
-#include "memorySegment.cpp"
-#include "staticMemoryManagement.cpp"
-#include "dynamicMemoryManagement.cpp"
-#include "tests.cpp"
+#include <memorySegment.h>
+#include <dynamicMemoryManagement.h>
+#include <staticMemoryManagement.h>
+#include "tests.h"
 
 int main(int argc, char **argv) {
     switch (atoi(argv[1])) {
