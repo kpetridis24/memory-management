@@ -10,6 +10,7 @@ The validity of the functions used, is examined by the corresponding tester func
 - First Fit
 - Best Fit
 - Next Fit
+
 Useful information about these methods can be found [here](https://www.tutorialspoint.com/operating_system/os_memory_allocation_qa2.htm)
 
 To run the code follow the steps:
