@@ -167,6 +167,7 @@ void reclaimDyn(memorySegment *memList, memorySegment *thisOne) {
             }
             break;
         }
+        currentSegment = currentSegment->next;
     }
 }
 

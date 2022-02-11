@@ -218,6 +218,22 @@ void test_assignFirstDyn() {
     allocatedBlock = assignFirstDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
+
+    memorySegment *blockToReclaim = (memorySegment *)malloc(sizeof(memorySegment));
+    blockToReclaim->startAddress = 100;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 2.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 300;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 5.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 0;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 1.\n\n");
+    printList(segments);
 }
 
 void test_assignBestDyn() {
@@ -247,6 +263,22 @@ void test_assignBestDyn() {
     allocatedBlock = assignBestDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
     printList(segments);
+
+    memorySegment *blockToReclaim = (memorySegment *)malloc(sizeof(memorySegment));
+    blockToReclaim->startAddress = 100;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 1.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 640;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 5.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 630;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 4.\n\n");
+    printList(segments);
 }
 
 void test_assignNextDyn() {
@@ -270,6 +302,22 @@ void test_assignNextDyn() {
     requiredMemory = 230;
     allocatedBlock = assignNextDyn(segments, requiredMemory);
     printf("\nMemory requested: %d\n\n", requiredMemory);
+    printList(segments);
+
+    memorySegment *blockToReclaim = (memorySegment *)malloc(sizeof(memorySegment));
+    blockToReclaim->startAddress = 360;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 5.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 320;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 4.\n\n");
+    printList(segments);
+
+    blockToReclaim->startAddress = 150;
+    reclaimDyn(segments, blockToReclaim);
+    printf("\nFree block 3.\n\n");
     printList(segments);
 }
 
