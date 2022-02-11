@@ -6,21 +6,21 @@
 /**
  * Static memory allocation techniques, for a requested memory size, and memory blocks. The memory remains intact, no 
  * segments are added, removed or changed.
- * 
- * @param memList The blocks of memory that we are about to access.
- * @param requestedMem The requested memory size to be allocated.
- * @return memorySegment* The memory block that is available for allocation.
  */
-memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem);
-memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem);
-memorySegment *assignNext(memorySegment *memList, uint16_t requestedMem);
-void reclaim(memorySegment *memList, memorySegment* thisOne);
 
 /**
  * Pointer to the last allocated block in the memory, that works as an indicator for the starting point of the Next Fit search.
  */
 memorySegment *lastAllocatedBlock;
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It assigns the first memory block, 
+ * that fits the requested memory.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
@@ -40,6 +40,14 @@ memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It locates the memory block that both 
+ * fits the requested memory and is closest to it, in order to minimize memory gaps after memory assignement.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
@@ -78,6 +86,16 @@ memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It has the same functionality as the 
+ * Firs Fit, but the searching starts from the block that was allocated during the last memory assignement. It tends to 
+ * allocate memory segments at the end of the memory list, leaving gaps which need to be concatenated in order to boost
+ * the efficiency of the method.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignNext(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     if (lastAllocatedBlock == NULL) {
