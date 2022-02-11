@@ -120,6 +120,12 @@ memorySegment *assignNext(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Statically frees the requested memory block.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param thisOne the memory block to reclaim.
+ */
 void reclaim(memorySegment *memList, memorySegment* thisOne) {
     memorySegment *currentSegment;
     currentSegment = memList;

@@ -8,16 +8,16 @@
  * Dynamic memory allocation techniques, for a requested memory size, and memory blocks. Each time a block is allocated, 
  * the remaining unallocated space of the block, is concatenated to the next, if it exists and is free. Otherwise, we
  * insert a new, independent block of the corresponding size, after the allocated space.
- * 
- * @param memList The blocks of memory that we are about to access.
- * @param requestedMem The requested memory size to be allocated.
- * @return memorySegment* The memory block that is available for allocation.
  */
-memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem);
-memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem);
-memorySegment *assignNextDyn(memorySegment *memList, uint16_t requestedMem);
-void reclaimDyn(memorySegment *memList, memorySegment *thisOne);
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It assigns the first memory block, 
+ * that fits the requested memory. 
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
@@ -53,6 +53,14 @@ memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It locates the memory block that both 
+ * fits the requested memory and is closest to it, in order to minimize memory gaps after memory assignement.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
@@ -112,6 +120,16 @@ memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Accesses the memory in a linear fashion, iterating over one block at a time. It has the same functionality as the 
+ * Firs Fit, but the searching starts from the block that was allocated during the last memory assignement. It tends to 
+ * allocate memory segments at the end of the memory list, leaving gaps which need to be concatenated in order to boost
+ * the efficiency of the method.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param requestedMem the memory requested by a process.
+ * @return memorySegment* the memory block that was allocated by the memory management service.
+ */
 memorySegment *assignNextDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     if (lastAllocatedBlock == NULL) {
@@ -152,6 +170,12 @@ memorySegment *assignNextDyn(memorySegment *memList, uint16_t requestedMem) {
     return (NULL);
 }
 
+/**
+ * Dynamically frees the requested memory block. If the next memory block is free as well, it concatenates the two.
+ * 
+ * @param memList the memory as a linked list, with each node representing a memory block.
+ * @param thisOne the memory block to reclaim.
+ */
 void reclaimDyn(memorySegment *memList, memorySegment *thisOne) {
     memorySegment *currentSegment;
     currentSegment = memList;
