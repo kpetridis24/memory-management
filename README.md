@@ -13,7 +13,7 @@ The validity of the functions used, is examined by the corresponding tester func
 
 To run the code follow the steps:
 
-1. Install the repository
+1. Clone the repository
 ```
 git clone https://github.com/kpetridis24/memory-management.git
 ```
