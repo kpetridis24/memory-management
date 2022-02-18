@@ -14,3 +14,7 @@ static:
 dynamic:
 	$(CC) -o $(BUILD_DIR)/main -I$(INCLUDE_DIR) $(SOURCES) $(CFLAGS)
 	./build/main 1
+
+test:
+	$(CC) -o $(BUILD_DIR)/main -I$(INCLUDE_DIR) $(SOURCES) $(CFLAGS)
+	./build/main 2
