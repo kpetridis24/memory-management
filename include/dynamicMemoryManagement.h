@@ -64,7 +64,7 @@ memorySegment *assignFirstDyn(memorySegment *memList, uint16_t requestedMem) {
 memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
-    memorySegment *bestBlock;
+    memorySegment *bestBlock = NULL;
     uint16_t bestFit = UINT16_MAX;
     bool exactFit = false;
 
@@ -88,6 +88,9 @@ memorySegment *assignBestDyn(memorySegment *memList, uint16_t requestedMem) {
         currentSegment = currentSegment->next; 
     }
 
+    if (bestBlock == NULL) {
+        return (NULL);
+    }
     currentSegment = memList;
 
     while (currentSegment != NULL) {

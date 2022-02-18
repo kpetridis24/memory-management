@@ -50,7 +50,7 @@ void insertListItemAfter(memorySegment *current) {
     newItem->startAddress = startAddressOfNewBlock;
     newItem->occupied = false;
 
-    if (current) {
+    if (current != NULL) { printf("ent\n");
         if (current->next) {
             newItem->next = current->next;
             current->next = newItem;
@@ -58,10 +58,6 @@ void insertListItemAfter(memorySegment *current) {
             current->next = newItem;
         }
         current = newItem->next;
-        // while (current != NULL) {
-        //     current->startAddress += lengthOfNewBlock;
-        //     current = current->next;
-        // }
     } else {
         current = newItem;
     }

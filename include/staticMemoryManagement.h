@@ -51,7 +51,7 @@ memorySegment *assignFirst(memorySegment *memList, uint16_t requestedMem) {
 memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem) {
     memorySegment *currentSegment;
     currentSegment = memList;
-    memorySegment *bestBlock;
+    memorySegment *bestBlock = NULL;
     uint16_t bestFit = UINT16_MAX;
 
     while(currentSegment != NULL) {
@@ -69,18 +69,9 @@ memorySegment *assignBest(memorySegment *memList, uint16_t requestedMem) {
         currentSegment = currentSegment->next; 
     }
 
-    currentSegment = memList;
-
-    while (currentSegment != NULL) {
-        if (currentSegment->occupied) {
-            currentSegment = currentSegment->next;
-            continue;
-        }
-        if (currentSegment->startAddress == bestBlock->startAddress) {
-            currentSegment->occupied = true;
-            return currentSegment;
-        }
-        currentSegment = currentSegment->next; 
+    if (bestBlock != NULL) {
+        bestBlock->occupied = true;
+        return bestBlock;
     }
 
     return (NULL);
